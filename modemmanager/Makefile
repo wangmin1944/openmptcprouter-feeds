@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://gitlab.freedesktop.org/mobile-broadband/ModemManager.git
-PKG_SOURCE_VERSION:=a20f2c052329a0d32ea3fee08e13d92b951f84fc
+PKG_SOURCE_VERSION:=ddaa4967a0dfc781044ece179a66aeef89f619e7
 PKG_NAME:=modemmanager
 PKG_VERSION:=1.18.0-$(PKG_SOURCE_VERSION)
 PKG_RELEASE:=10
