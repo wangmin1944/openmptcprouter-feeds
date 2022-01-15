@@ -2,9 +2,9 @@
 
 uci -q batch <<-EOF >/dev/null
 	set luci.diag=internal
-	set luci.diag.ping="zjzwyl.com"
-	set luci.diag.dns="zjzwyl.com"
-	set luci.diag.route="zjzwyl.com"
+	set luci.diag.ping="zjzwxw.com"
+	set luci.diag.dns="zjzwxw.com"
+	set luci.diag.route="zjzwxw.com"
 	set luci.diag.iperf3="ping-ams1.online.net"
 	set luci.diag.getip="ip.openmptcprouter.com"
 	commit luci
