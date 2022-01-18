@@ -371,7 +371,7 @@ return baseclass.extend({
 
 			release: {
 				title: _('Firmware Version'),
-				value: "xzRouter v0.0.1"
+				value: (typeof boardinfo.release !== "undefined") ? ((typeof boardinfo.release.description !== "undefined") ? boardinfo.release.description : null) : null
 			}
 		};
 
