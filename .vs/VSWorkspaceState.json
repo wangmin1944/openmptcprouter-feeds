@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\luci-mod-dashboard",
+    "\\luci-mod-dashboard\\htdocs",
+    "\\luci-mod-dashboard\\htdocs\\luci-static",
+    "\\luci-mod-dashboard\\htdocs\\luci-static\\resources",
+    "\\luci-mod-dashboard\\htdocs\\luci-static\\resources\\view",
+    "\\luci-mod-dashboard\\htdocs\\luci-static\\resources\\view\\dashboard",
+    "\\luci-mod-dashboard\\htdocs\\luci-static\\resources\\view\\dashboard\\include"
+  ],
+  "SelectedNode": "\\luci-mod-dashboard\\htdocs\\luci-static\\resources\\view\\dashboard\\include\\10_router.js",
+  "PreviewInSolutionExplorer": false
+}
