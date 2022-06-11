@@ -843,19 +843,6 @@ _set_vpn_ip() {
 	fi
 }
 
-_set_sipalg() {
-	local settings
-	sipalg="$(uci -q get openmptcprouter.settings.sipalg)"
-	if [ "$sipalg" = "1" ]; then
-		sipalg="true"
-	else
-		sipalg="false"
-	fi
-	settings='{"enable" : "'$sipalg'"}'
-	result=$(_set_json "sipalg" "$settings")
-}
-
-
 _delete_client2client() {
 	if [ -n "$(echo $1 | grep omr_client2client)" ]; then
 		uci -q delete network.$1
@@ -1153,11 +1140,9 @@ _set_vps_firewall() {
 	username="$(uci -q get openmptcprouter.${fwservername}.username)"
 	settings='{"name" : "redirect router"}'
 	fw_list=$(_set_json "shorewalllist" "$settings")
-	[ -z "$fw_list" ] && return
 	vpsfwlist=$(echo $fw_list | jsonfilter -q -e '@.list[*]' | sed '/^[[:space:]]*$/d')
 	settings='{"name" : "open router"}'
 	fw_list=$(_set_json "shorewalllist" "$settings")
-	[ -z "$fw_list" ] && return
 	if [ -n "$vpsfwlist" ]; then
 		vpsfwlist="$vpsfwlist\n$(echo $fw_list | jsonfilter -q -e '@.list[*]' | sed '/^[[:space:]]*$/d')"
 	else
@@ -1165,11 +1150,9 @@ _set_vps_firewall() {
 	fi
 	settings='{"name" : "redirect router","ipproto" : "ipv6"}'
 	fw6_list=$(_set_json "shorewalllist" "$settings")
-	[ -z "$fw6_list" ] && return
 	vpsfw6list=$(echo $fw6_list | jsonfilter -q -e '@.list[*]' | sed '/^[[:space:]]*$/d')
 	settings='{"name" : "open router","ipproto" : "ipv6"}'
 	fw6_list=$(_set_json "shorewalllist" "$settings")
-	[ -z "$fw6_list" ] && return
 	if [ -n "$vpsfw6list" ]; then
 		vpsfw6list="$vpsfw6list\n$(echo $fw6_list | jsonfilter -q -e '@.list[*]' | sed '/^[[:space:]]*$/d')"
 	else
@@ -1895,7 +1878,6 @@ _config_service() {
 	lanips=""
 	config_foreach _get_lan_ip interface
 	_set_lan_ip
-	_set_sipalg
 	config_foreach _delete_client2client route
 	if [ "$(uci -q get openmptcprouter.settings.vpn)" != "openvpn" ] && [ "$(echo "$vps_config" | jsonfilter -q -e '@.client2client.enabled')" == "true" ]; then
 		_set_client2client

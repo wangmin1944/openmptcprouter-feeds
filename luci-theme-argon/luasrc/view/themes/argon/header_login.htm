@@ -21,7 +21,6 @@
 	local util = require "luci.util"
 	local http = require "luci.http"
 	local disp = require "luci.dispatcher"
-	local ver = require "luci.version"
 
 	local boardinfo = util.ubus("system", "board")
 
@@ -79,11 +78,11 @@
     <link rel="icon" type="image/png" sizes="32x32" href="<%=media%>/icon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="<%=media%>/icon/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="<%=media%>/icon/favicon-16x16.png">
-    <link rel="manifest" href="<%=media%>/icon/manifest.json" crossorigin="use-credentials">
+    <link rel="manifest" href="<%=media%>/icon/manifest.json">
     <meta name="msapplication-TileColor" content="<%=bar_color%>">
     <meta name="msapplication-TileImage" content="<%=media%>/icon/ms-icon-144x144.png">
     <meta name="theme-color" content="<%=bar_color%>">
-    <link rel="stylesheet" href="<%=media%>/css/cascade.css<%# ?v=PKG_VERSION %>">
+    <link rel="stylesheet" href="<%=media%>/css/cascade.css?v=<%=math.random(1,100000)%>">
     <style title="text/css">
         <% if mode == 'normal' then %>
             @media (prefers-color-scheme: dark) {
@@ -112,8 +111,13 @@
         <%=css %>
     </style>
     <% end -%>
-    <script src="<%=media%>/js/jquery.min.js?v=3.5.1"></script>
+    <script src="<%=url('admin/translations', luci.i18n.context.lang)%><%# ?v=PKG_VERSION %>"></script>
+    <script src="<%=resource%>/cbi.js<%# ?v=PKG_VERSION %>"></script>
+    <script src="<%=resource%>/xhr.js<%# ?v=PKG_VERSION %>"></script>
+    <script src="<%=media%>/js/jquery.min.js<%# ?v=PKG_VERSION %>"></script>
 
 </head>
 
-<body>
+<body
+    class="lang_<%=luci.i18n.context.lang%> <% if node then %><%= striptags( node.title ) %><% end %> <% if luci.dispatcher.context.authsession then %>logged-in<% end %>"
+    data-page="<%= table.concat(disp.context.requestpath, "-") %>">
